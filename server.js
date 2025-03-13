@@ -5,6 +5,8 @@ const app = express();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
+require('dotenv').config()
+
 app.use(cors({
     origin : "http://localhost:5173",
     credentials : true
@@ -12,6 +14,7 @@ app.use(cors({
 
 app.use(cookieParser());
 app.use(express.json());
+
 
 const authRouter = require('./Routers/auth');
 const profileRouter = require('./Routers/profile');
@@ -26,8 +29,8 @@ app.use("/",userRouter);
 connectDB()
 .then(() => {
     console.log('successfully connected to database')
-    app.listen(3000,() => {
-        console.log("server started successfully!");
+    app.listen(process.env.PORT,() => {
+        console.log("server started successfully at 3000!");
     })
 })
 .catch(() => {
