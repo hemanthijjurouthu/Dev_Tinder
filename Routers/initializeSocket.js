@@ -3,6 +3,7 @@ const Chat = require('../Models/chat');
 
 const initializeSocket = (server) => {
     const io = new Server(server, {
+        path: "/api/socket-io",
         cors : {
             origin : 'http://localhost:5173',
         },
