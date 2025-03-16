@@ -1,5 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/database');
+const initializeSocket = require('./Routers/initializeSocket');
 
 const app = express();
 const cookieParser = require('cookie-parser');
@@ -20,16 +21,22 @@ const authRouter = require('./Routers/auth');
 const profileRouter = require('./Routers/profile');
 const requestRouter = require('./Routers/request');
 const userRouter = require('./Routers/user');
+const chatRouter = require('./Routers/chatRouter');
 
 app.use("/",authRouter);
 app.use("/",profileRouter);
 app.use("/",requestRouter);
 app.use("/",userRouter);
+app.use("/",chatRouter);
+
+const http = require('http');
+const server = http.createServer(app);
+initializeSocket(server);
 
 connectDB()
 .then(() => {
     console.log('successfully connected to database')
-    app.listen(process.env.PORT,() => {
+    server.listen(process.env.PORT,() => {
         console.log("server started successfully at 3000!");
     })
 })

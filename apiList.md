@@ -10,3 +10,7 @@
 - GET - /profile/view
 - POST - /profile/Edit
 - POST - /profile/password - forgot password
+
+# Chat Router
+
+- Get - /chat/targetUserId
