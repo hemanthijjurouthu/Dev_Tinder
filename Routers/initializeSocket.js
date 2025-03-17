@@ -3,10 +3,8 @@ const Chat = require('../Models/chat');
 
 const initializeSocket = (server) => {
     const io = new Server(server, {
-        cors : {
-            origin : ['http://localhost:5173',
-                "https://ijjurouthu.duckdns.org"
-            ]
+        cors: {
+            credentials: true,
         },
     });
 
