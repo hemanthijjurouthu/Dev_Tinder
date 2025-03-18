@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-cron.schedule('54 21 * * *', async () => { 
+cron.schedule('20 22 * * *', async () => { 
   try {
     const yesterday = subDays(new Date(), 0);
     const yesterdayStart = startOfDay(yesterday);
