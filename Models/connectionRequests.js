@@ -19,7 +19,7 @@ const connectionRequestsSchema = new mongoose.Schema({
             message : `{VALUE} is incorrect status type`,
         },
     },
-},{timeStamps : true});
+},{timestamps : true});
 
 connectionRequestsSchema.pre("save",function () {
     const connectionRequest = this;
