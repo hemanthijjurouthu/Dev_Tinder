@@ -39,6 +39,13 @@ const userSchema = new mongoose.Schema({
             }
         }
     },
+    isPremium : {
+        type : Boolean,
+        default : false,
+    },
+    membershipType : {
+        type : String,
+    },
     photoURL : {
         type : String,
         default : "https://hancockogundiyapartners.com/wp-content/uploads/2019/07/dummy-profile-pic-300x300.jpg",

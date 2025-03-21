@@ -1,7 +1,6 @@
 const cron = require('node-cron');
 const nodemailer = require('nodemailer');
 const { subDays, startOfDay, endOfDay } = require('date-fns');
-const fs = require('fs'); // To log output to a file
 const connectionRequestModel = require('../Models/connectionRequests'); 
 
 const transporter = nodemailer.createTransport({
@@ -12,15 +11,8 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-cron.schedule('47 22 * * *', async () => { 
-  const logFile = 'cron-job.log';
-  const logMessage = `Cron job triggered at ${new Date().toLocaleString()}\n`;
-  
-  fs.appendFileSync(logFile, logMessage); // Log execution
-
+cron.schedule('53 22 * * *', async () => { 
   try {
-    console.log(logMessage);
-    
     const yesterday = subDays(new Date(), 0);
     const yesterdayStart = startOfDay(yesterday);
     const yesterdayEnd = endOfDay(yesterday);
@@ -33,8 +25,6 @@ cron.schedule('47 22 * * *', async () => {
       },
     }).populate('fromUserId toUserId');
 
-    fs.appendFileSync(logFile, `Found ${pendingRequests.length} pending requests\n`);
-    
     const listOfEmails = [...new Set(pendingRequests.map(req => req.toUserId.emailId))];
 
     for (const email of listOfEmails) {
@@ -51,13 +41,10 @@ cron.schedule('47 22 * * *', async () => {
       };
 
       await transporter.sendMail(mailOptions);
-      const successMsg = `Email sent to ${email}\n`;
-      console.log(successMsg);
-      fs.appendFileSync(logFile, successMsg);
+      console.log(`Email sent to ${email}`);
     }
   } catch (err) {
-    const errorMsg = `Error sending emails: ${err.message}\n`;
-    console.error(errorMsg);
-    fs.appendFileSync(logFile, errorMsg);
+    console.error('Error sending emails:', err);
   }
 });
+
