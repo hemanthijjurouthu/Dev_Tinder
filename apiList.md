@@ -14,3 +14,4 @@
 # Chat Router
 
 - Get - /chat/targetUserId
+- Hello 
