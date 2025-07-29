@@ -21,7 +21,11 @@ authRouter.post('/signup',async (req,res) => {
         await newUser.save();
         const token = await newUser.getJWT();
         console.log(token);
-        res.cookie("token",token,{ expires: new Date(Date.now()+ 7 * 86400000) });
+        res.cookie("token",token,{
+            httpOnly: true,
+            secure: true,
+            sameSite: "None",
+            expires: new Date(Date.now()+ 7 * 86400000) });
         res.send(newUser);
     }
     catch(err)
@@ -49,7 +53,11 @@ authRouter.post("/login",async (req,res) => {
         {
             const token = await user.getJWT();
             console.log(token);
-            res.cookie("token",token,{ expires: new Date(Date.now()+ 7 * 86400000) });
+            res.cookie("token",token,{ 
+                httpOnly: true,
+                secure: true,
+                sameSite: "None",
+                expires: new Date(Date.now()+ 7 * 86400000) });
             res.send(user);
         }
     }
