@@ -14,7 +14,7 @@ require('./Routers/cronjob');
 app.use(cors({
     origin : ["http://localhost:5173",
               "https://dev-tinder-7ghd-ah3gvuwq0-hemanths-projects-21c6a1fe.vercel.app",
-              "https://dev-tinder-7ghd-l4eic36mz-hemanths-projects-21c6a1fe.vercel.app"],
+              "https://dev-tinder-7ghd.vercel.app"],
     credentials : true
 }));
 
